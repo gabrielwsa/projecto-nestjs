@@ -14,7 +14,7 @@ export class CarsController {
     }
 
     @Get(':id') // isso vai indiciar que ao fazer uma peticao get a essa rota, o metodo getCarById sera chamado 127.0.0.1:3000/cars/:id
-    getCarById(@Param('id', ParseIntPipe) id: number){
+    getCarById(@Param('id') id: string){
         return this.carsService.findOneById(id);
     }
     
@@ -29,7 +29,7 @@ export class CarsController {
     }
 
     @Delete(':id')
-    deleteCar(@Param('id', ParseIntPipe) id: number){
+    deleteCar(@Param('id') id: string){
         return id;
     }
 }
