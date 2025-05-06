@@ -1,6 +1,6 @@
 import { Body, Controller, Delete, Get, Param, ParseUUIDPipe, Patch, Post, UsePipes, ValidationPipe } from '@nestjs/common';
 import { CarsService } from './cars.service';
-import { CreateCarDto } from './dto/create-car.dto';
+import { CreateCarDto, UpdateCarDto } from './dto';
 
 @Controller('cars')
 // @UsePipes(ValidationPipe) // isso vai validar o payload de todos os metodos que estao nesse controller
@@ -25,16 +25,16 @@ export class CarsController {
     @Post()
     // @UsePipes(ValidationPipe) // Isso vai validar somente o payload do metodo createCar POST
     createCar(@Body() payload: CreateCarDto){
-        return payload;
+        return this.carsService.create(payload);
     }
 
     @Patch(':id')
-    updateCar(@Body() payload: any){
-        return payload;
+    updateCar(@Param('id', ParseUUIDPipe) id: string, @Body() payload: UpdateCarDto){
+        return this.carsService.update(id, payload);
     }
 
     @Delete(':id')
     deleteCar(@Param('id', ParseUUIDPipe) id: string){
-        return id;
+        return this.carsService.delete(id);
     }
 }

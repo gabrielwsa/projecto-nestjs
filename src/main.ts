@@ -9,8 +9,8 @@ async function bootstrap() {
   // transform em true vai transformar o payload para o tipo do DTO
   // forbidNonWhitelisted com whitelist em true vai retornar um erro caso algum atributo nao esteja no DTO
   app.useGlobalPipes(new ValidationPipe({
-    whitelist: true,
-    forbidNonWhitelisted: true,
+    // whitelist: true,
+    // forbidNonWhitelisted: true,
     // transform: true,
   }))
 
