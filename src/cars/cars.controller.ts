@@ -1,36 +1,20 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Controller, Get, Param, ParseIntPipe } from '@nestjs/common';
+import { CarsService } from './cars.service';
 
 @Controller('cars')
 export class CarsController {
 
-    private cars = [
-        {
-            id: 1,
-            brand: 'BMW',
-            model: '320',
-            year: 2020
-        },
-        {
-            id: 2,
-            brand: 'Mercedes',
-            model: 'Citan',
-            year: 2021
-        },
-        {
-            id: 3,
-            brand: 'Audi',
-            model: 'A4',
-            year: 2022
-        }
-    ]
+    constructor(
+        private readonly carsService: CarsService
+    ){}
 
     @Get() // isso vai indiciar que ao fazer uma peticao get a essa rota, o metodo getAllCars sera chamado 127.0.0.1:3000/cars
     getAllCars(){
-        return this.cars
+        return this.carsService.findAll();
     }
 
     @Get(':id')
-    getCarById(@Param('id') id: string){
-        return this.cars.find(car => car.id === parseInt(id));
+    getCarById(@Param('id', ParseIntPipe) id: number){
+        return this.carsService.findOneById(id);
     }
 }
